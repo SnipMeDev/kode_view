@@ -31,7 +31,7 @@ extension SyntaxSpanExtension on List<CodeHighlight> {
         (token) => TokenSpan(
           value: text.substring(token.location.start, token.location.end),
           color: token is ColorHighlight
-              ? Color(token.rgb)
+              ? Color(token.rgb | 0xFF000000)
               : baseStyle.color ?? Colors.black,
           start: token.location.start,
           end: token.location.end,

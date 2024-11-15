@@ -3,8 +3,6 @@
 #
 
 list(APPEND FLUTTER_PLUGIN_LIST
-  highlights_plugin
-  kode_view
 )
 
 list(APPEND FLUTTER_FFI_PLUGIN_LIST

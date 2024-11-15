@@ -93,10 +93,10 @@ packages:
     description:
       path: "."
       ref: "release/0.2.0"
-      resolved-ref: "0af7385466fd0cb17e1d49ebf6fdae47f78f670f"
+      resolved-ref: c919cefba6f59c932c244facd342ce3ece991ba2
       url: "https://github.com/SnipMeDev/highlights_plugin.git"
     source: git
-    version: "0.1.0"
+    version: "0.2.0"
   json_annotation:
     dependency: transitive
     description:

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+
 import 'package:kode_view/kode_view.dart';
+
 
 const codeSnippet =
     "class HelloWorld {\n\tpublic static void main(String[] args) {\n\t\tSystem.out.println(\"Hello, World!\"); \n}}";
@@ -12,12 +14,14 @@ class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
+
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
           title: const Text('Kode View example'),
         ),
+
         body: Center(
             child: Column(
           children: [

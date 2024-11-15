@@ -14,6 +14,7 @@ class CodeTextView extends StatelessWidget {
     required this.code,
     this.maxLines,
     this.options,
+    this.showCursor,
     this.onTap,
     this.language,
     this.theme,
@@ -22,6 +23,7 @@ class CodeTextView extends StatelessWidget {
   final splitter = const LineSplitter();
   final String code;
   final int? maxLines;
+  final bool? showCursor;
   final TextSelectionOptions? options;
   final GestureTapCallback? onTap;
 
@@ -33,6 +35,7 @@ class CodeTextView extends StatelessWidget {
       required this.code,
       this.options,
       this.onTap,
+      this.showCursor,
       this.language,
       this.theme})
       : maxLines = 5;
@@ -45,31 +48,30 @@ class CodeTextView extends StatelessWidget {
       future: (_highlights()).then((value) => value.toSpans(
           code.lines(maxLinesOrAll), TextStyles.code(code).style!)),
       builder: (_, value) {
-        return SelectableText.rich(
-          TextSpan(children: value.requireData),
-          minLines: 1,
-          maxLines: maxLinesOrAll,
-          onTap: () {},
-          toolbarOptions: options?.toolbarOptions,
-          showCursor: options?.showCursor ?? false,
-          enableInteractiveSelection: false,
-          scrollPhysics: const NeverScrollableScrollPhysics(),
+        return Expanded(
+          child: SelectableText.rich(
+            TextSpan(children: value.requireData),
+            minLines: 1,
+            maxLines: maxLinesOrAll,
+            onTap: () {},
+            contextMenuBuilder: options != null
+                ? (context, editableTextState) =>
+                    options!.toolbarOptions(context, editableTextState)
+                : null,
+            enableInteractiveSelection: options != null,
+            showCursor: showCursor ?? false,
+            scrollPhysics: const ClampingScrollPhysics(),
+          ),
         );
       },
     );
   }
 
-  Future<List<CodeHighlight>> _highlights() async {
-    debugPrint(code);
-    debugPrint(language);
-    debugPrint(theme);
-    var a = await HighlightsPlugin().getHighlights(
-      code,
-      language,
-      theme,
-      [],
-    );
-    debugPrint(a.toString());
-    return a;
-  }
+  Future<List<CodeHighlight>> _highlights() async =>
+      await HighlightsPlugin().getHighlights(
+        code,
+        language,
+        theme,
+        [],
+      );
 }

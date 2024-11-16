@@ -17,7 +17,6 @@ class CodeTextView extends StatelessWidget {
     this.language,
     this.theme,
     this.textStyle,
-    this.debug = false,
     super.key,
   });
 
@@ -32,8 +31,6 @@ class CodeTextView extends StatelessWidget {
   final String? theme;
   final TextStyle? textStyle;
 
-  final bool debug;
-
   const CodeTextView.preview({
     required this.code,
     this.options,
@@ -42,7 +39,6 @@ class CodeTextView extends StatelessWidget {
     this.language,
     this.theme,
     this.textStyle,
-    this.debug = false,
     super.key,
   }) : maxLines = 5;
 
@@ -74,23 +70,15 @@ class CodeTextView extends StatelessWidget {
   }
 
   Future<List<TextSpan>> _highlights(int maxLinesOrAll) async {
-    try {
-      final highlights = await HighlightsPlugin().getHighlights(
-        code,
-        language,
-        theme,
-        [],
-      );
-      return highlights.toSpans(
-        code.lines(maxLinesOrAll),
-        textStyle ?? TextStyles.code(code).style!,
-      );
-    } catch (error, stackTrace) {
-      if (debug) {
-        debugPrint('KodeView highlights error: $error');
-        debugPrintStack(stackTrace: stackTrace);
-      }
-    }
-    return [];
+    final highlights = await HighlightsPlugin().getHighlights(
+      code,
+      language,
+      theme,
+      [],
+    );
+    return highlights.toSpans(
+      code.lines(maxLinesOrAll),
+      textStyle ?? TextStyles.code(code).style!,
+    );
   }
 }

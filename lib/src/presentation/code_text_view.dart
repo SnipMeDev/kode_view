@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:highlights_plugin/highlights_plugin.dart';
-import 'package:highlights_plugin/model/code_highlight.dart';
 import 'package:kode_view/src/presentation/styles/text_styles.dart';
 import 'package:kode_view/src/presentation/text_selection_options.dart';
 import 'package:kode_view/src/utils/extensions/collection_extensions.dart';
@@ -18,6 +17,7 @@ class CodeTextView extends StatelessWidget {
     this.language,
     this.theme,
     this.textStyle,
+    this.debug = false,
     super.key,
   });
 
@@ -32,6 +32,8 @@ class CodeTextView extends StatelessWidget {
   final String? theme;
   final TextStyle? textStyle;
 
+  final bool debug;
+
   const CodeTextView.preview({
     required this.code,
     this.options,
@@ -40,20 +42,17 @@ class CodeTextView extends StatelessWidget {
     this.language,
     this.theme,
     this.textStyle,
+    this.debug = false,
     super.key,
   }) : maxLines = 5;
 
   @override
   Widget build(BuildContext context) {
     final maxLinesOrAll = maxLines ?? splitter.convert(code).length;
+
     return FutureBuilder(
       initialData: const <TextSpan>[],
-      future: (_highlights()).then(
-        (value) => value.toSpans(
-          code.lines(maxLinesOrAll),
-          textStyle ?? TextStyles.code(code).style!,
-        ),
-      ),
+      future: _highlights(maxLinesOrAll),
       builder: (_, value) {
         return Expanded(
           child: SelectableText.rich(
@@ -74,11 +73,24 @@ class CodeTextView extends StatelessWidget {
     );
   }
 
-  Future<List<CodeHighlight>> _highlights() async =>
-      await HighlightsPlugin().getHighlights(
+  Future<List<TextSpan>> _highlights(int maxLinesOrAll) async {
+    try {
+      final highlights = await HighlightsPlugin().getHighlights(
         code,
         language,
         theme,
         [],
       );
+      return highlights.toSpans(
+        code.lines(maxLinesOrAll),
+        textStyle ?? TextStyles.code(code).style!,
+      );
+    } catch (error, stackTrace) {
+      if (debug) {
+        debugPrint('KodeView highlights error: $error');
+        debugPrintStack(stackTrace: stackTrace);
+      }
+    }
+    return [];
+  }
 }

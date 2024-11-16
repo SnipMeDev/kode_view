@@ -48,7 +48,7 @@ extension SyntaxSpanExtension on List<CodeHighlight> {
         );
 
         return !isDuplicated;
-      });
+      }).toSet();
 
       final tokenIndices =
           uniqueTokens.expand((token) => [token.start, token.end]).toList();

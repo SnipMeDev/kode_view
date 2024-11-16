@@ -17,6 +17,7 @@ class CodeTextView extends StatelessWidget {
     this.onTap,
     this.language,
     this.theme,
+    this.textStyle,
     super.key,
   });
 
@@ -29,6 +30,7 @@ class CodeTextView extends StatelessWidget {
 
   final String? language;
   final String? theme;
+  final TextStyle? textStyle;
 
   const CodeTextView.preview({
     required this.code,
@@ -37,6 +39,7 @@ class CodeTextView extends StatelessWidget {
     this.showCursor,
     this.language,
     this.theme,
+    this.textStyle,
     super.key,
   }) : maxLines = 5;
 
@@ -48,7 +51,7 @@ class CodeTextView extends StatelessWidget {
       future: (_highlights()).then(
         (value) => value.toSpans(
           code.lines(maxLinesOrAll),
-          TextStyles.code(code).style!,
+          textStyle ?? TextStyles.code(code).style!,
         ),
       ),
       builder: (_, value) {

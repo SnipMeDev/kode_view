@@ -8,19 +8,27 @@ class TextSelectionOptions {
   TextSelectionOptions({this.copy, this.selectAll, this.share});
 
   Widget toolbarOptions(
-      BuildContext context, EditableTextState editableTextState) {
+    BuildContext context,
+    EditableTextState editableTextState,
+  ) {
     return AdaptiveTextSelectionToolbar.editable(
       clipboardStatus: ClipboardStatus.pasteable,
-      onCopy: _getAction(copy,
-          () => editableTextState.copySelection(SelectionChangedCause.tap)),
+      onCopy: _getAction(
+        copy,
+        () => editableTextState.copySelection(SelectionChangedCause.tap),
+      ),
       onCut: null,
       onPaste: null,
-      onSelectAll: _getAction(selectAll,
-          () => editableTextState.selectAll(SelectionChangedCause.tap)),
+      onSelectAll: _getAction(
+        selectAll,
+        () => editableTextState.selectAll(SelectionChangedCause.tap),
+      ),
       onLookUp: null,
       onSearchWeb: null,
-      onShare: _getAction(share,
-          () => editableTextState.shareSelection(SelectionChangedCause.tap)),
+      onShare: _getAction(
+        share,
+        () => editableTextState.shareSelection(SelectionChangedCause.tap),
+      ),
       onLiveTextInput: null,
       anchors: const TextSelectionToolbarAnchors(primaryAnchor: Offset(0, 20)),
     );

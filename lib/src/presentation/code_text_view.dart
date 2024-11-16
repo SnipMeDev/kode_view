@@ -10,7 +10,6 @@ import 'package:kode_view/src/utils/extensions/text_extensions.dart';
 
 class CodeTextView extends StatelessWidget {
   const CodeTextView({
-    super.key,
     required this.code,
     this.maxLines,
     this.options,
@@ -18,6 +17,7 @@ class CodeTextView extends StatelessWidget {
     this.onTap,
     this.language,
     this.theme,
+    super.key,
   });
 
   final splitter = const LineSplitter();
@@ -30,23 +30,27 @@ class CodeTextView extends StatelessWidget {
   final String? language;
   final String? theme;
 
-  const CodeTextView.preview(
-      {super.key,
-      required this.code,
-      this.options,
-      this.onTap,
-      this.showCursor,
-      this.language,
-      this.theme})
-      : maxLines = 5;
+  const CodeTextView.preview({
+    required this.code,
+    this.options,
+    this.onTap,
+    this.showCursor,
+    this.language,
+    this.theme,
+    super.key,
+  }) : maxLines = 5;
 
   @override
   Widget build(BuildContext context) {
     final maxLinesOrAll = maxLines ?? splitter.convert(code).length;
     return FutureBuilder(
       initialData: const <TextSpan>[],
-      future: (_highlights()).then((value) => value.toSpans(
-          code.lines(maxLinesOrAll), TextStyles.code(code).style!)),
+      future: (_highlights()).then(
+        (value) => value.toSpans(
+          code.lines(maxLinesOrAll),
+          TextStyles.code(code).style!,
+        ),
+      ),
       builder: (_, value) {
         return Expanded(
           child: SelectableText.rich(

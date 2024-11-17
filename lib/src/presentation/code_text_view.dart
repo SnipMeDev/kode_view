@@ -50,20 +50,19 @@ class CodeTextView extends StatelessWidget {
       initialData: const <TextSpan>[],
       future: _highlights(maxLinesOrAll),
       builder: (_, value) {
-        return Expanded(
-          child: SelectableText.rich(
-            TextSpan(children: value.requireData),
-            minLines: 1,
-            maxLines: maxLinesOrAll,
-            onTap: () {},
-            contextMenuBuilder: options != null
-                ? (context, editableTextState) =>
-                    options!.toolbarOptions(context, editableTextState)
-                : null,
-            enableInteractiveSelection: options != null,
-            showCursor: showCursor ?? false,
-            scrollPhysics: const ClampingScrollPhysics(),
-          ),
+        return SelectableText.rich(
+          TextSpan(children: value.requireData),
+          style: textStyle ?? TextStyles.code(code).style!,
+          minLines: 1,
+          maxLines: maxLinesOrAll,
+          onTap: () {},
+          contextMenuBuilder: options != null
+              ? (context, editableTextState) =>
+                  options!.toolbarOptions(context, editableTextState)
+              : null,
+          enableInteractiveSelection: options != null,
+          showCursor: showCursor ?? false,
+          scrollPhysics: const ClampingScrollPhysics(),
         );
       },
     );

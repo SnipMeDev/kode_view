@@ -37,6 +37,13 @@ class _MyAppState extends State<MyApp> {
               options: TextSelectionOptions(
                   copy: true, selectAll: true, share: true),
             ),
+            const SizedBox(height: 24),
+            const Text("CodeEditText"),
+            const SizedBox(height: 12),
+            const CodeEditText(
+              code: codeSnippet,
+              showCursor: true,
+            ),
           ],
         )),
       ),

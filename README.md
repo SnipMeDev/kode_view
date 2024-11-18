@@ -2,6 +2,69 @@
 
 Flutter syntax highlighting widgets based on [Highlights](https://github.com/SnipMeDev/Highlights) library. 
 
+Images  
+
+## Installation
+
+```dart
+flutter pub add kode_view
+```
+
+## Usage
+
+### CodeTextView
+
+```dart
+import 'package:flutter/material.dart';
+import 'package:kode_view/kode_view.dart';
+
+@override
+Widget build(BuildContext context) {
+  final codeSnippet = "class HelloWorld {}";
+  
+  return MaterialApp(
+    home: Scaffold(
+      appBar: ...,
+      body: CodeTextView(
+        code: codeSnippet,
+        language: "Java",
+        theme: "darcula",
+        options: ...,
+      ),
+    ),
+  );
+}
+```
+
+### CodeEditText
+
+```dart
+import 'package:flutter/material.dart';
+import 'package:kode_view/kode_view.dart';
+
+class _MyAppState extends State<MyApp> {
+  final SyntaxHighlightingController controller =
+  SyntaxHighlightingController(text: codeSnippet);
+
+  @override
+  Widget build(BuildContext context) {
+    final codeSnippet = "class HelloWorld {}";
+
+    return MaterialApp(
+      home: Scaffold(
+        appBar: ...,
+        body: CodeEditText(
+          code: codeSnippet,
+          controller: controller,
+          showCursor: true,
+        ),
+      ),
+    );
+  }
+}
+
+```
+
 License 🖋️
 =======
 

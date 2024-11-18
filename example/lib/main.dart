@@ -16,6 +16,8 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  final SyntaxHighlightingController controller =
+      SyntaxHighlightingController(text: codeSnippet);
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -43,8 +45,9 @@ class _MyAppState extends State<MyApp> {
             const SizedBox(height: 24),
             const Text("CodeEditText"),
             const SizedBox(height: 12),
-            const CodeEditText(
+            CodeEditText(
               code: codeSnippet,
+              controller: controller,
               showCursor: true,
             ),
           ],

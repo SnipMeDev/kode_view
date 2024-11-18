@@ -5,6 +5,7 @@ import 'package:kode_view/src/presentation/text_selection_options.dart';
 class CodeEditText extends StatefulWidget {
   const CodeEditText({
     required this.code,
+    this.controller,
     this.maxLines,
     this.options,
     this.showCursor,
@@ -23,6 +24,7 @@ class CodeEditText extends StatefulWidget {
   final TextSelectionOptions? options;
   final InputDecoration? decoration;
   final GestureTapCallback? onTap;
+  final SyntaxHighlightingController? controller;
   final bool debug;
 
   final String? language;
@@ -39,9 +41,8 @@ class _CodeEditTextState extends State<CodeEditText> {
   @override
   void initState() {
     super.initState();
-    _controller = SyntaxHighlightingController(
-      text: widget.code,
-      debug: widget.debug,
+    _controller = widget.controller ??
+        SyntaxHighlightingController(text: widget.code, debug: widget.debug,
     )..addListener(() {
         _controller.updateSyntaxHighlighting(
           code: _controller.text,

@@ -38,10 +38,11 @@ class SyntaxHighlightingController extends TextEditingController {
   }
 
   @override
-  TextSpan buildTextSpan(
-      {required BuildContext context,
-      TextStyle? style,
-      required bool withComposing}) {
+  TextSpan buildTextSpan({
+    required BuildContext context,
+    TextStyle? style,
+    required bool withComposing,
+  }) {
     return TextSpan(children: textSpansNotifier.value, style: style);
   }
 

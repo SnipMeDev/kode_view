@@ -39,16 +39,17 @@ class _CodeEditTextState extends State<CodeEditText> {
   @override
   void initState() {
     super.initState();
-    _controller =
-        SyntaxHighlightingController(text: widget.code, debug: widget.debug);
-    _controller.addListener(() {
-      _controller.updateSyntaxHighlighting(
-        code: _controller.text,
-        language: widget.language,
-        theme: widget.theme,
-        textStyle: widget.textStyle,
-      );
-    });
+    _controller = SyntaxHighlightingController(
+      text: widget.code,
+      debug: widget.debug,
+    )..addListener(() {
+        _controller.updateSyntaxHighlighting(
+          code: _controller.text,
+          language: widget.language,
+          theme: widget.theme,
+          textStyle: widget.textStyle,
+        );
+      });
 
     _controller.updateSyntaxHighlighting(
       code: _controller.text,

@@ -35,7 +35,10 @@ class _MyAppState extends State<MyApp> {
               language: "Java",
               theme: "darcula",
               options: TextSelectionOptions(
-                  copy: true, selectAll: true, share: true),
+                copy: true,
+                selectAll: true,
+                share: true,
+              ),
             ),
             const SizedBox(height: 24),
             const Text("CodeEditText"),

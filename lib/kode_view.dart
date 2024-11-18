@@ -1,6 +1,9 @@
 import 'package:highlights_plugin/highlights_plugin.dart';
 
+export './src/presentation/code_edit_text.dart' show CodeEditText;
 export './src/presentation/code_text_view.dart' show CodeTextView;
+export './src/presentation/syntax_highlighting_controller.dart'
+    show SyntaxHighlightingController;
 export './src/presentation/text_selection_options.dart'
     show TextSelectionOptions;
 

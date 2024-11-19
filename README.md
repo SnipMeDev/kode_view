@@ -2,7 +2,7 @@
 
 Flutter syntax highlighting widgets based on [Highlights](https://github.com/SnipMeDev/Highlights) library. 
 
-Images  
+<img width="1358" alt="iShot_2024-11-18_21 55 36" src="https://github.com/user-attachments/assets/066a248b-facc-40d1-b518-03ff92c8c847">
 
 ## Installation
 
@@ -64,6 +64,22 @@ class _MyAppState extends State<MyApp> {
 }
 
 ```
+
+## Features
+- 17 supported languages (Kotlin, Dart, Swift, PHP, etc)
+- Light / dark mode
+- 6 built-in themes
+- Phrase bolding (emphasis)
+- Result caching and support for incremental changes
+
+## Support
+
+- Android ✅
+- iOS ✅
+- macOS 🔴 (Not yet)
+- Linux 🔴 (Not yet)
+- Windows 🔴 (Not yet)
+- Web 🔴 (Not yet)
 
 License 🖋️
 =======

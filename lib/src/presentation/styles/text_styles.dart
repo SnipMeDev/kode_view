@@ -17,7 +17,7 @@ class TextStyles extends Text {
           key: key,
           style: const TextStyle(
             fontSize: 16,
-            fontStyle: FontStyle.italic,
+            fontStyle: FontStyle.normal,
           ),
         );
 

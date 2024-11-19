@@ -2,6 +2,85 @@
 
 Flutter syntax highlighting widgets based on [Highlights](https://github.com/SnipMeDev/Highlights) library. 
 
+<img width="1358" alt="iShot_2024-11-18_21 55 36" src="https://github.com/user-attachments/assets/066a248b-facc-40d1-b518-03ff92c8c847">
+
+## Installation
+
+```dart
+flutter pub add kode_view
+```
+
+## Usage
+
+### CodeTextView
+
+```dart
+import 'package:flutter/material.dart';
+import 'package:kode_view/kode_view.dart';
+
+@override
+Widget build(BuildContext context) {
+  final codeSnippet = "class HelloWorld {}";
+  
+  return MaterialApp(
+    home: Scaffold(
+      appBar: ...,
+      body: CodeTextView(
+        code: codeSnippet,
+        language: "Java",
+        theme: "darcula",
+        options: ...,
+      ),
+    ),
+  );
+}
+```
+
+### CodeEditText
+
+```dart
+import 'package:flutter/material.dart';
+import 'package:kode_view/kode_view.dart';
+
+class _MyAppState extends State<MyApp> {
+  final SyntaxHighlightingController controller =
+  SyntaxHighlightingController(text: codeSnippet);
+
+  @override
+  Widget build(BuildContext context) {
+    final codeSnippet = "class HelloWorld {}";
+
+    return MaterialApp(
+      home: Scaffold(
+        appBar: ...,
+        body: CodeEditText(
+          code: codeSnippet,
+          controller: controller,
+          showCursor: true,
+        ),
+      ),
+    );
+  }
+}
+
+```
+
+## Features
+- 17 supported languages (Kotlin, Dart, Swift, PHP, etc)
+- Light / dark mode
+- 6 built-in themes
+- Phrase bolding (emphasis)
+- Result caching and support for incremental changes
+
+## Support
+
+- Android ✅
+- iOS ✅
+- macOS 🔴 (Not yet)
+- Linux 🔴 (Not yet)
+- Windows 🔴 (Not yet)
+- Web 🔴 (Not yet)
+
 License 🖋️
 =======
 

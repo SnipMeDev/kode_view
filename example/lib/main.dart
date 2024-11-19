@@ -45,6 +45,7 @@ class _MyAppState extends State<MyApp> {
                     selectAll: true,
                     share: true,
                   ),
+                  enableLineNumbers: true,
                 ),
               ),
               const SizedBox(height: 24),

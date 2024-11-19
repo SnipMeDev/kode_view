@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kode_view/src/presentation/styles/text_styles.dart';
+import 'package:kode_view/src/presentation/line_numbers_wrapper.dart';
 import 'package:kode_view/src/presentation/syntax_highlighting_controller.dart';
 import 'package:kode_view/src/presentation/text_selection_options.dart';
 
@@ -67,8 +67,11 @@ class _CodeEditTextState extends State<CodeEditText> {
   void initState() {
     super.initState();
     _controller = widget.controller ??
-        SyntaxHighlightingController(text: widget.code, debug: widget.debug,
-    )..addListener(() {
+        SyntaxHighlightingController(
+          text: widget.code,
+          debug: widget.debug,
+        )
+      ..addListener(() {
         _controller.updateSyntaxHighlighting(
           code: _controller.text,
           language: widget.language,
@@ -90,50 +93,24 @@ class _CodeEditTextState extends State<CodeEditText> {
     return ValueListenableBuilder(
       valueListenable: _controller.textSpansNotifier,
       builder: (context, __, _) {
-        return Row(
-          children: [
-            if (widget.enableLineNumbers) ...[
-              Container(
-                color: widget.lineNumberBackgroundColor,
-                width: 40,
-                child: ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: _controller.text.split('\n').length,
-                  itemBuilder: (context, index) {
-                    return Text(
-                      '${index + 1}',
-                      textAlign: TextAlign.right,
-                      style: TextStyle(
-                        color: widget.lineNumberColor ?? Colors.black54,
-                        fontSize: widget.textStyle?.fontSize ??
-                            const TextStyles.code('').style!.fontSize,
-                      ),
-                    );
-                  },
-                ),
-              ),
-              const SizedBox(
-                width: 4,
-              ),
-            ],
-            Expanded(
-              child: TextField(
-                controller: _controller,
-                style: widget.textStyle,
-                onTap: widget.onTap,
-                minLines: 1,
-                maxLines: widget.maxLines,
-                contextMenuBuilder: widget.options != null
-                    ? (context, editableTextState) => widget.options!
-                        .toolbarOptions(context, editableTextState)
-                    : null,
-                enableInteractiveSelection: widget.options != null,
-                showCursor: widget.showCursor ?? true,
-                scrollPhysics: const ClampingScrollPhysics(),
-                decoration: widget.decoration,
-              ),
-            ),
-          ],
+        return LineNumbersWrapper(
+          enableLineNumbers: widget.enableLineNumbers,
+          linesNumber: _controller.text.split('\n').length,
+          child: TextField(
+            controller: _controller,
+            style: widget.textStyle,
+            onTap: widget.onTap,
+            minLines: 1,
+            maxLines: widget.maxLines,
+            contextMenuBuilder: widget.options != null
+                ? (context, editableTextState) =>
+                    widget.options!.toolbarOptions(context, editableTextState)
+                : null,
+            enableInteractiveSelection: widget.options != null,
+            showCursor: widget.showCursor ?? true,
+            scrollPhysics: const ClampingScrollPhysics(),
+            decoration: widget.decoration,
+          ),
         );
       },
     );

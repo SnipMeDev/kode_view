@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:highlights_plugin/highlights_plugin.dart';
+import 'package:kode_view/src/presentation/line_numbers_wrapper.dart';
 import 'package:kode_view/src/presentation/styles/text_styles.dart';
 import 'package:kode_view/src/presentation/text_selection_options.dart';
 import 'package:kode_view/src/utils/extensions/collection_extensions.dart';
@@ -17,6 +18,7 @@ class CodeTextView extends StatelessWidget {
     this.language,
     this.theme,
     this.textStyle,
+    this.enableLineNumbers = false,
     super.key,
   });
 
@@ -26,6 +28,7 @@ class CodeTextView extends StatelessWidget {
   final bool? showCursor;
   final TextSelectionOptions? options;
   final GestureTapCallback? onTap;
+  final bool enableLineNumbers;
 
   final String? language;
   final String? theme;
@@ -39,6 +42,7 @@ class CodeTextView extends StatelessWidget {
     this.language,
     this.theme,
     this.textStyle,
+    this.enableLineNumbers = false,
     super.key,
   }) : maxLines = 5;
 
@@ -50,19 +54,23 @@ class CodeTextView extends StatelessWidget {
       initialData: const <TextSpan>[],
       future: _highlights(maxLinesOrAll),
       builder: (_, value) {
-        return SelectableText.rich(
-          TextSpan(children: value.requireData),
-          style: textStyle ?? TextStyles.code(code).style!,
-          minLines: 1,
-          maxLines: maxLinesOrAll,
-          onTap: () {},
-          contextMenuBuilder: options != null
-              ? (context, editableTextState) =>
-                  options!.toolbarOptions(context, editableTextState)
-              : null,
-          enableInteractiveSelection: options != null,
-          showCursor: showCursor ?? false,
-          scrollPhysics: const ClampingScrollPhysics(),
+        return LineNumbersWrapper(
+          enableLineNumbers: enableLineNumbers,
+          linesNumber: maxLinesOrAll,
+          child: SelectableText.rich(
+            TextSpan(children: value.requireData),
+            style: textStyle ?? TextStyles.code(code).style!,
+            minLines: 1,
+            maxLines: maxLinesOrAll,
+            onTap: () {},
+            contextMenuBuilder: options != null
+                ? (context, editableTextState) =>
+                    options!.toolbarOptions(context, editableTextState)
+                : null,
+            enableInteractiveSelection: options != null,
+            showCursor: showCursor ?? false,
+            scrollPhysics: const ClampingScrollPhysics(),
+          ),
         );
       },
     );

@@ -56,6 +56,7 @@ class _MyAppState extends State<MyApp> {
                   code: codeSnippet,
                   controller: controller,
                   showCursor: true,
+                  enableLineNumbers: true,
                 ),
               ),
             ],

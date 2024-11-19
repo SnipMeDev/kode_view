@@ -1,6 +1,6 @@
 name: kode_view
 description: Flutter syntax highlighting widgets based on Highlights
-version: 0.1.0
+version: 0.2.0
 homepage: https://github.com/SnipMeDev/kode_view
 
 environment:

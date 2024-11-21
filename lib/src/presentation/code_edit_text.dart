@@ -83,20 +83,25 @@ class _CodeEditTextState extends State<CodeEditText> {
           enableLineNumbers: widget.showLineNumbers,
           linesNumber: _controller.text.split('\n').length,
           fontSize: widget.textStyle.fontSize,
-          child: TextField(
-            controller: _controller,
-            style: widget.textStyle,
-            onTap: widget.onTap,
-            minLines: 1,
-            maxLines: widget.maxLines,
-            contextMenuBuilder: widget.options != null
-                ? (context, editableTextState) =>
-                    widget.options!.toolbarOptions(context, editableTextState)
-                : null,
-            enableInteractiveSelection: widget.options != null,
-            showCursor: widget.showCursor ?? true,
-            scrollPhysics: const ClampingScrollPhysics(),
-            decoration: widget.decoration,
+          child: SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: IntrinsicWidth(
+              child: TextField(
+                controller: _controller,
+                style: widget.textStyle,
+                onTap: widget.onTap,
+                minLines: 1,
+                maxLines: widget.maxLines,
+                contextMenuBuilder: widget.options != null
+                    ? (context, editableTextState) => widget.options!
+                        .toolbarOptions(context, editableTextState)
+                    : null,
+                enableInteractiveSelection: widget.options != null,
+                showCursor: widget.showCursor ?? true,
+                scrollPhysics: const ClampingScrollPhysics(),
+                decoration: widget.decoration,
+              ),
+            ),
           ),
         );
       },

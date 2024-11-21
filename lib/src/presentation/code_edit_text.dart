@@ -1,59 +1,45 @@
 import 'package:flutter/material.dart';
 import 'package:kode_view/src/presentation/line_numbers_wrapper.dart';
+import 'package:kode_view/src/presentation/styles/text_styles.dart';
 import 'package:kode_view/src/presentation/syntax_highlighting_controller.dart';
 import 'package:kode_view/src/presentation/text_selection_options.dart';
 
 class CodeEditText extends StatefulWidget {
   const CodeEditText({
     required this.code,
-
-    // Core functionality
     this.controller,
     this.language,
     this.theme,
-    this.textStyle,
+    this.textStyle = const TextStyles.code(),
     this.maxLines,
-
-    // Appearance
     this.decoration,
-    this.enableLineNumbers = false,
+    this.showLineNumbers = false,
     this.lineNumberColor,
     this.lineNumberBackgroundColor,
-
-    // Interaction
     this.showCursor,
     this.options,
     this.onTap,
-
-    // Debugging
     this.debug = false,
-
-    // Flutter widget key
     super.key,
   });
 
-  // Required
   final String code;
 
-  // Core functionality
   final SyntaxHighlightingController? controller;
   final String? language;
   final String? theme;
-  final TextStyle? textStyle;
+  final TextStyle textStyle;
   final int? maxLines;
 
-  // Appearance
   final InputDecoration? decoration;
-  final bool enableLineNumbers;
+  final bool showLineNumbers;
   final Color? lineNumberColor;
   final Color? lineNumberBackgroundColor;
 
-  // Interaction
   final bool? showCursor;
   final TextSelectionOptions? options;
   final GestureTapCallback? onTap;
 
-  // Debugging
   final bool debug;
 
   @override
@@ -94,8 +80,9 @@ class _CodeEditTextState extends State<CodeEditText> {
       valueListenable: _controller.textSpansNotifier,
       builder: (context, __, _) {
         return LineNumbersWrapper(
-          enableLineNumbers: widget.enableLineNumbers,
+          enableLineNumbers: widget.showLineNumbers,
           linesNumber: _controller.text.split('\n').length,
+          textStyle: widget.textStyle,
           child: TextField(
             controller: _controller,
             style: widget.textStyle,

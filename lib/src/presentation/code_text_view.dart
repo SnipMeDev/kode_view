@@ -57,9 +57,10 @@ class CodeTextView extends StatelessWidget {
         return LineNumbersWrapper(
           enableLineNumbers: enableLineNumbers,
           linesNumber: maxLinesOrAll,
+          textStyle: textStyle,
           child: SelectableText.rich(
             TextSpan(children: value.requireData),
-            style: textStyle ?? TextStyles.code(code).style!,
+            style: textStyle ?? const TextStyles.code(),
             minLines: 1,
             maxLines: maxLinesOrAll,
             onTap: () {},
@@ -85,7 +86,7 @@ class CodeTextView extends StatelessWidget {
     );
     return highlights.toSpans(
       code.lines(maxLinesOrAll),
-      textStyle ?? TextStyles.code(code).style!,
+      textStyle ?? const TextStyles.code(),
     );
   }
 }

@@ -2,7 +2,6 @@ import 'package:collection/collection.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:highlights_plugin/model/code_highlight.dart';
-import 'package:kode_view/src/presentation/styles/text_styles.dart';
 import 'package:kode_view/src/utils/extensions/text_extensions.dart';
 
 class TokenSpan with EquatableMixin {
@@ -64,8 +63,7 @@ extension SyntaxSpanExtension on List<CodeHighlight> {
         );
 
         if (foundToken != null) {
-          style =
-              TextStyles.code(text).style!.copyWith(color: foundToken.color);
+          style = baseStyle.copyWith(color: foundToken.color);
         }
 
         return TextSpan(text: phrase, style: style);

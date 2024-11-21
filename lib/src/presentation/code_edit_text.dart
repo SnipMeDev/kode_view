@@ -82,7 +82,7 @@ class _CodeEditTextState extends State<CodeEditText> {
         return LineNumbersWrapper(
           enableLineNumbers: widget.showLineNumbers,
           linesNumber: _controller.text.split('\n').length,
-          textStyle: widget.textStyle,
+          fontSize: widget.textStyle.fontSize,
           child: TextField(
             controller: _controller,
             style: widget.textStyle,

@@ -17,7 +17,7 @@ class CodeTextView extends StatelessWidget {
     this.onTap,
     this.language,
     this.theme,
-    this.textStyle,
+    this.textStyle = const TextStyles.code(),
     this.enableLineNumbers = false,
     super.key,
   });
@@ -32,7 +32,7 @@ class CodeTextView extends StatelessWidget {
 
   final String? language;
   final String? theme;
-  final TextStyle? textStyle;
+  final TextStyle textStyle;
 
   const CodeTextView.preview({
     required this.code,
@@ -41,7 +41,7 @@ class CodeTextView extends StatelessWidget {
     this.showCursor,
     this.language,
     this.theme,
-    this.textStyle,
+    this.textStyle = const TextStyles.code(),
     this.enableLineNumbers = false,
     super.key,
   }) : maxLines = 5;
@@ -57,10 +57,10 @@ class CodeTextView extends StatelessWidget {
         return LineNumbersWrapper(
           enableLineNumbers: enableLineNumbers,
           linesNumber: maxLinesOrAll,
-          textStyle: textStyle,
+          fontSize: textStyle.fontSize,
           child: SelectableText.rich(
             TextSpan(children: value.requireData),
-            style: textStyle ?? const TextStyles.code(),
+            style: textStyle,
             minLines: 1,
             maxLines: maxLinesOrAll,
             onTap: () {},
@@ -86,7 +86,7 @@ class CodeTextView extends StatelessWidget {
     );
     return highlights.toSpans(
       code.lines(maxLinesOrAll),
-      textStyle ?? const TextStyles.code(),
+      textStyle,
     );
   }
 }

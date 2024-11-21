@@ -1,12 +1,15 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:kode_view/src/presentation/styles/text_styles.dart';
+import 'package:kode_view/src/utils/extensions/text_extensions.dart';
 
 class LineNumbersWrapper extends StatelessWidget {
   const LineNumbersWrapper({
     required this.enableLineNumbers,
     required this.linesNumber,
     required this.child,
-    this.textStyle,
+    this.fontSize,
     this.lineNumberBackgroundColor,
     this.lineNumberColor,
     super.key,
@@ -15,16 +18,31 @@ class LineNumbersWrapper extends StatelessWidget {
   final int linesNumber;
   final Color? lineNumberBackgroundColor;
   final Color? lineNumberColor;
-  final TextStyle? textStyle;
+  final double? fontSize;
   final Widget child;
+
   @override
   Widget build(BuildContext context) {
+    double maxWidth = 0;
+    for (int i = 0; i < linesNumber; i++) {
+      String lineNumber = i.toString();
+      double width = lineNumber.getTextWidth(
+        TextStyles.lineNumber(
+          color: lineNumberColor,
+          fontSize: fontSize,
+        ),
+      );
+      maxWidth = max(maxWidth, width);
+    }
+
     return Row(
       children: [
         if (enableLineNumbers) ...[
           Container(
+            constraints: BoxConstraints(
+              maxWidth: maxWidth + 10,
+            ),
             color: lineNumberBackgroundColor,
-            width: 40,
             child: ListView.builder(
               shrinkWrap: true,
               itemCount: linesNumber,
@@ -32,10 +50,9 @@ class LineNumbersWrapper extends StatelessWidget {
                 return Text(
                   '${index + 1}',
                   textAlign: TextAlign.right,
-                  style: TextStyle(
-                    color: lineNumberColor ?? Colors.black54,
-                    fontSize: textStyle?.fontSize ??
-                        const TextStyles.code('').style!.fontSize,
+                  style: TextStyles.lineNumber(
+                    color: lineNumberColor,
+                    fontSize: fontSize,
                   ),
                 );
               },

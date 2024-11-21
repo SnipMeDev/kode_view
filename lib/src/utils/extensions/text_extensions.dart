@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
+
 extension TextExtensions on String {
   String get route => '/$this';
 
@@ -45,5 +47,13 @@ extension TextExtensions on String {
   String lines(int count) {
     final split = const LineSplitter().convert(this).take(count);
     return split.join('\n');
+  }
+
+  double getTextWidth(TextStyle? style) {
+    final textPainter = TextPainter(
+      text: TextSpan(text: this, style: style),
+      textDirection: TextDirection.ltr,
+    )..layout();
+    return textPainter.size.width;
   }
 }

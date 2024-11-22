@@ -66,7 +66,10 @@ class _CodeEditTextState extends State<CodeEditText> {
           code: _controller.text,
           language: widget.language,
           theme: widget.theme,
-          textStyle: widget.textStyle,
+          textStyle: widget.textStyle.copyWith(
+            height: 1.5,
+            fontSize: 10.0,
+          ),
         );
       });
 
@@ -74,7 +77,10 @@ class _CodeEditTextState extends State<CodeEditText> {
       code: _controller.text,
       language: widget.language,
       theme: widget.theme,
-      textStyle: widget.textStyle,
+      textStyle: widget.textStyle.copyWith(
+        height: 1.5,
+        fontSize: 10.0,
+      ),
     );
 
     _textFieldScrollController.addListener(() {
@@ -106,15 +112,20 @@ class _CodeEditTextState extends State<CodeEditText> {
           showLineNumbers: widget.showLineNumbers,
           scrollController: _lineNumbersScrollController,
           linesNumber: _controller.text.split('\n').length,
-          fontSize: widget.textStyle.fontSize,
+          fontSize: 10.0,
           child: SingleChildScrollView(
             scrollDirection: Axis.horizontal,
+            physics: const ClampingScrollPhysics(),
             child: IntrinsicWidth(
               child: TextField(
+                scrollPadding: EdgeInsets.zero,
                 key: _textFieldKey,
                 scrollController: _textFieldScrollController,
                 controller: _controller,
-                style: widget.textStyle,
+                style: widget.textStyle.copyWith(
+                  height: 1.5,
+                  fontSize: 10.0,
+                ),
                 onTap: widget.onTap,
                 minLines: 1,
                 maxLines: widget.maxLines,

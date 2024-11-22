@@ -11,5 +11,6 @@ class TextStyles extends TextStyle {
           color: Colors.black54,
           fontSize: fontSize ?? 16,
           fontStyle: FontStyle.normal,
+          height: 1.5,
         );
 }

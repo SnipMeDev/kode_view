@@ -49,7 +49,7 @@ class LineNumbersWrapper extends StatelessWidget {
             ),
             color: lineNumberBackgroundColor,
             child: ListView.builder(
-              physics: const NeverScrollableScrollPhysics(),
+              physics: const ClampingScrollPhysics(),
               controller: scrollController,
               shrinkWrap: true,
               itemCount: linesNumber,

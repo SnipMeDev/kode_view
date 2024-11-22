@@ -81,7 +81,7 @@ class _CodeTextViewState extends State<CodeTextView> {
           scrollController: controller,
           showLineNumbers: widget.enableLineNumbers,
           height: height,
-          linesNumber: maxLinesOrAll,
+          linesCount: maxLinesOrAll,
           fontSize: widget.textStyle.fontSize,
           child: SelectableText.rich(
             TextSpan(children: value.requireData),

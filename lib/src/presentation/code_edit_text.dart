@@ -111,7 +111,7 @@ class _CodeEditTextState extends State<CodeEditText> {
           height: _textFieldHeight,
           showLineNumbers: widget.showLineNumbers,
           scrollController: _lineNumbersScrollController,
-          linesNumber: _controller.text.split('\n').length,
+          linesCount: _controller.text.split('\n').length,
           fontSize: 10.0,
           child: SingleChildScrollView(
             scrollDirection: Axis.horizontal,

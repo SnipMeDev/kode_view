@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:highlights_plugin/highlights_plugin.dart';
-import 'package:kode_view/src/presentation/styles/text_styles.dart';
 import 'package:kode_view/src/utils/extensions/collection_extensions.dart';
 
 class SyntaxHighlightingController extends TextEditingController {
@@ -17,9 +16,9 @@ class SyntaxHighlightingController extends TextEditingController {
 
   Future<void> updateSyntaxHighlighting({
     required String code,
+    required TextStyle textStyle,
     String? theme,
     String? language,
-    TextStyle? textStyle,
   }) async {
     try {
       final highlightedText = await _highlights(
@@ -50,7 +49,7 @@ class SyntaxHighlightingController extends TextEditingController {
     required String code,
     required String? language,
     required String? theme,
-    required TextStyle? textStyle,
+    required TextStyle textStyle,
   }) async {
     final highlights = await HighlightsPlugin().getHighlights(
       code,
@@ -60,7 +59,7 @@ class SyntaxHighlightingController extends TextEditingController {
     );
     return highlights.toSpans(
       code,
-      textStyle ?? TextStyles.code(code).style!,
+      textStyle,
     );
   }
 }

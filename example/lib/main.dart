@@ -45,6 +45,7 @@ class _MyAppState extends State<MyApp> {
                     selectAll: true,
                     share: true,
                   ),
+                  enableLineNumbers: true,
                 ),
               ),
               const SizedBox(height: 24),
@@ -56,6 +57,14 @@ class _MyAppState extends State<MyApp> {
                   code: codeSnippet,
                   controller: controller,
                   showCursor: true,
+                  showLineNumbers: true,
+                  maxLines: 5,
+                  decoration: const InputDecoration(
+                    contentPadding: EdgeInsets.zero,
+                    border: OutlineInputBorder(
+                      gapPadding: 0,
+                    ),
+                  ),
                 ),
               ),
             ],

@@ -48,6 +48,10 @@ class CodeEditText extends StatefulWidget {
 
 class _CodeEditTextState extends State<CodeEditText> {
   late SyntaxHighlightingController _controller;
+  final ScrollController _lineNumbersScrollController = ScrollController();
+  final ScrollController _textFieldScrollController = ScrollController();
+  final GlobalKey _textFieldKey = GlobalKey();
+  double _textFieldHeight = 0;
 
   @override
   void initState() {
@@ -72,6 +76,21 @@ class _CodeEditTextState extends State<CodeEditText> {
       theme: widget.theme,
       textStyle: widget.textStyle,
     );
+
+    _textFieldScrollController.addListener(() {
+      if (_textFieldScrollController.offset !=
+          _lineNumbersScrollController.offset) {
+        _lineNumbersScrollController.jumpTo(_textFieldScrollController.offset);
+      }
+    });
+  }
+
+  void _getTextFieldHeight() {
+    final RenderBox renderBox =
+        _textFieldKey.currentContext?.findRenderObject() as RenderBox;
+    setState(() {
+      _textFieldHeight = renderBox.size.height;
+    });
   }
 
   @override
@@ -79,14 +98,21 @@ class _CodeEditTextState extends State<CodeEditText> {
     return ValueListenableBuilder(
       valueListenable: _controller.textSpansNotifier,
       builder: (context, __, _) {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          _getTextFieldHeight();
+        });
         return LineNumbersWrapper(
-          enableLineNumbers: widget.showLineNumbers,
+          height: _textFieldHeight,
+          showLineNumbers: widget.showLineNumbers,
+          scrollController: _lineNumbersScrollController,
           linesNumber: _controller.text.split('\n').length,
           fontSize: widget.textStyle.fontSize,
           child: SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: IntrinsicWidth(
               child: TextField(
+                key: _textFieldKey,
+                scrollController: _textFieldScrollController,
                 controller: _controller,
                 style: widget.textStyle,
                 onTap: widget.onTap,

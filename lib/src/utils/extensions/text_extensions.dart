@@ -51,7 +51,10 @@ extension TextExtensions on String {
 
   double getTextWidth(TextStyle? style) {
     final textPainter = TextPainter(
-      text: TextSpan(text: this, style: style),
+      text: TextSpan(
+        text: this,
+        style: style,
+      ),
       textDirection: TextDirection.ltr,
     )..layout();
     return textPainter.size.width;
